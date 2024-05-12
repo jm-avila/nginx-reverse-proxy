@@ -1,0 +1,32 @@
+services:
+  reverse-proxy:
+    build:
+      context: reverse_proxy
+    ports:
+      - "80:80"
+    networks:
+      - shared-network
+
+  files_server:
+    build:
+      context: files_server
+    ports:
+      - "3000:80"
+    volumes:
+      - ./files_server/media:/media
+    networks:
+      - shared-network
+
+  client_server:
+    build:
+      context: client_server
+    ports:
+      - "3001:80"
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+
+volumes:
+  media:
