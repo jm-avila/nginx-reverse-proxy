@@ -10,18 +10,14 @@ services:
   files_server:
     build:
       context: files_server
-    ports:
-      - "3000:80"
     volumes:
-      - ./files_server/media:/media
+      - /Volumes/TheOther/Repositories/node_scrapper/catalog:/catalog
     networks:
       - shared-network
 
   client_server:
     build:
       context: client_server
-    ports:
-      - "3001:80"
     networks:
       - shared-network
 
@@ -29,4 +25,5 @@ networks:
   shared-network:
 
 volumes:
-  media:
+  scrapper:
+  catalog:

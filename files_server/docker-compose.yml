@@ -1,0 +1,6 @@
+services:
+  files_server:
+    build:
+      context: .
+    ports:
+      - "3000:80"
