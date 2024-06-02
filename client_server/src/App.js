@@ -1,10 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
+import { Navigation, ImageList, ImageAutoplay } from "./components";
+
 import "./App.css";
+
 const host = process.env.REACT_APP_FILES_HOST;
 
 function App() {
+  const [autoPlay, setAutoPlay] = useState(false);
   const [currentPath, setCurrentPath] = useState([]);
-
   const [dirSrc, setDirSrc] = useState([]);
   const [imageSrc, setImageSrc] = useState([]);
 
@@ -65,38 +68,40 @@ function App() {
     handleAsync();
   }, [getimagesSrc]);
 
+  const updateAutoPlay = useCallback(() => {
+    setAutoPlay((prevState) => !prevState);
+  }, []);
+
+  const updatePath = useCallback((src) => {
+    if (src === "../") {
+      setCurrentPath((prevState) => {
+        return [...prevState.slice(0, -1)];
+      });
+    } else {
+      setCurrentPath((prevState) => {
+        return [...prevState, src];
+      });
+    }
+  }, []);
+
   return (
     <div className="App">
       <div className="path-container">
-        <h1>{currentPath.join("/")}</h1>
+        <h1>{currentPath.join("")}</h1>
       </div>
-      <div className="dir-container">
-        {dirSrc.map((src, i) => {
-          return (
-            <button
-              key={i}
-              onClick={() => {
-                if (src === "../") {
-                  setCurrentPath((prevState) => {
-                    return [...prevState.slice(0, -1)];
-                  });
-                } else {
-                  setCurrentPath((prevState) => {
-                    return [...prevState, src];
-                  });
-                }
-              }}
-            >
-              {src}
-            </button>
-          );
-        })}
-      </div>
-      <div className="img-container">
-        {imageSrc.map((src, i) => {
-          return <img alt="" key={i} src={src} />;
-        })}
-      </div>
+
+      <Navigation
+        autoPlay={autoPlay}
+        updateAutoPlay={updateAutoPlay}
+        dirSrc={dirSrc}
+        updatePath={updatePath}
+      />
+
+      {autoPlay ? (
+        <ImageAutoplay imageSrc={imageSrc} />
+      ) : (
+        <ImageList imageSrc={imageSrc} />
+      )}
     </div>
   );
 }

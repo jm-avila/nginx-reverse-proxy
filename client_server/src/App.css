@@ -24,4 +24,29 @@
       max-height: 80vh;
     }
   }
+
+  .custom-carousel {
+    height: 85vh;
+    max-width: 100vw;
+    overflow: hidden;
+    .ant-carousel {
+      height: 85vh;
+    }
+
+    .slick-slider {
+      height: 85vh;
+      background-color: black;
+      .slick-list {
+        height: 85vh;
+
+        .slick-track {
+          height: 85vh;
+        }
+      }
+    }
+  }
+
+  .navigate-select {
+    width: 100%;
+  }
 }

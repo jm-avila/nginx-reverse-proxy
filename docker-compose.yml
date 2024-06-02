@@ -11,7 +11,7 @@ services:
     build:
       context: files_server
     volumes:
-      - /Volumes/TheOther/Repositories/node_scrapper/catalog:/catalog
+      - /Volumes/the_other/Repositories/node_scrapper/catalog:/catalog
     networks:
       - shared-network
 
@@ -25,5 +25,4 @@ networks:
   shared-network:
 
 volumes:
-  scrapper:
   catalog:
